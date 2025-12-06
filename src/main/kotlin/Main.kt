@@ -1,73 +1,52 @@
-import org.w3c.dom.css.Rect
-import java.time.LocalDate
-import kotlin.math.PI
-import kotlin.math.sqrt
-
 fun main() {
-    val rect1 = Rectangle(width = 5f, height = 7f)
-    val circle = Circle(radius = 5f)
+    val favoriteNumbers = intArrayOf(1, 2, 3, 69)
+    val helloWorld = "Hello world!"
 
-    println(greetMe(Country.GERMANY))
-    println(greetMe(Country.FRANCE))
-    println(greetMe(Country.USA))
+    val evenNumbers = favoriteNumbers.filter { it % 2 == 0}
+    val lettersOnly = helloWorld.filter { it.isLetter() }
 
-    for (country in Country.entries) {
-        println(country.code)
+    val list = listOf(1, 2, 3).filter { it % 2 == 0 }   // <T> Iterable<T>.filter(): List<T>
+
+    val stringsList = listOf("Hello world!", "Bye bye!", "How's it going?")
+    val integers = listOf(1, 2, 3, 4, 5)
+
+    val filteredStrings = stringsList.myFilter {
+        currentString -> currentString.length > 10
     }
 
-    println(FixedSizeSquare.area)
-
-//    DateUtil.formatDate()
-}
-
-object FixedSizeSquare: Shape {
-    override val area = 16f
-    override val circumference = 16f
-}
-
-enum class Country (val code: String) {
-    GERMANY("DE"), FRANCE("FR"), USA("US")
-}
-
-fun greetMe (country: Country): String {
-    return when (country) {
-        Country.GERMANY -> "Guten Tag!"
-        Country.FRANCE -> "Bonjour!"
-        Country.USA -> "Hello"
+    val filteredNumbers = integers.myFilter {
+        currentInteger -> currentInteger < 3
+//        it < 3
     }
+
+    println(filteredStrings)
+    println(filteredNumbers)
+
+    val result = makeNetworkCall()
+
+    val mappedNumbers = integers.map {
+//        currentInteger -> currentInteger.toDouble()
+        it.toDouble()
+    }
+
+    println(mappedNumbers)
 }
 
-sealed interface Shape {
-    val area: Float
-    val circumference: Float
+fun makeNetworkCall(): Result<Int, String> {
+    return Result.Failure("Something went wrong")
 }
 
-fun printShapes(vararg shapes: Shape) {
-    for (shape in shapes) {
-        val output = when (shape) {
-            is Circle -> "Yo that's a circle!"
-            is Rectangle -> "That's a rect!"
-            is FixedSizeSquare -> "That's a fix size square!"
-//            else -> null      // sealed class => compiler biet chinh xac co bao nhieu TH con => khong can thiet
+fun <T> List<T>.myFilter(predicate: (T) -> Boolean): List<T> {
+    val result = mutableListOf<T>()
+    for (element in this) {
+        if (predicate(element)) {
+            result.add(element)
         }
-        println(output)
     }
+    return result.toList()
 }
 
-data class Rectangle (val width: Float, val height: Float): Shape {
-
-    //chỉ truy cập được trong class này
-    private val diagonal = sqrt(width * width + height * height)
-
-    override val area = width * height
-
-    override val circumference = 2 * width + 2 * height
-}
-
-data class Circle (val radius: Float): Shape {
-    override val area = radius * radius * PI.toFloat()
-
-    override val circumference = 2 * radius * PI.toFloat()
-
-    val diameter = 2 * radius
+sealed interface Result<out D, out E> {
+    data class Success<D>(val data: D): Result<D, Nothing>
+    data class Failure<E>(val data: E): Result<Nothing, E>
 }
