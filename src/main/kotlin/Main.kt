@@ -1,19 +1,15 @@
 fun main() {
-    var x = 5
+    val x = 11
     val y = 9
 
-    println(x + y)
-    println(x - y)
-    println(x / y)
-    println(x * y)
-    println(x % y)
+    println(x == y)     // false
+    println(x > y)      // true
+    println(x >= y)     // true
 
-    x++
-    println(x)
+    val areNumbersTheSame = x == y
+    println(areNumbersTheSame)
 
-    x--
-    println(x)
+    println(x % 2 == 0)         // false
 
-    x += 5      // -= *= /=
-    println(x)
+    println("Is y an even number? ${y % 2 == 0}")       //  false
 }
