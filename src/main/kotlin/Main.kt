@@ -1,15 +1,12 @@
 fun main() {
-    val x = 11
+    val x = 12
     val y = 9
 
-    println(x == y)     // false
-    println(x > y)      // true
-    println(x >= y)     // true
+    val areBothEven = x % 2 == 0 && y % 2 == 0
+    val atleastOneEven = x % 2 == 0 || y % 2 == 0
 
-    val areNumbersTheSame = x == y
-    println(areNumbersTheSame)
 
-    println(x % 2 == 0)         // false
 
-    println("Is y an even number? ${y % 2 == 0}")       //  false
+    println("Are both even? $areBothEven")
+    println("Are atleast one even? $atleastOneEven")
 }
