@@ -6,9 +6,7 @@ fun main() {
     val rect1 = Rectangle(width = 5f, height = 7f)
     val circle = Circle(radius = 5f)
 
-    rect1.inc()
-
-    println(rect1.counter)      //1
+    printShapes(rect1, circle, rect1)
 }
 
 fun sumAreas (vararg shapes: Shape): Double {
@@ -17,32 +15,23 @@ fun sumAreas (vararg shapes: Shape): Double {
     }
 }
 
-abstract class Shape {
-    var counter = 0
+sealed interface Shape {
+    val area: Float
+    val circumference: Float
+}
 
-    abstract val area: Float
-    abstract val circumference: Float
-
-    fun inc() {
-        counter++
+fun printShapes(vararg shapes: Shape) {
+    for (shape in shapes) {
+        val output = when (shape) {
+            is Circle -> "Yo that's a circle!"
+            is Rectangle -> "That's a rect!"
+//            else -> null      // sealed class => compiler biet chinh xac co bao nhieu TH con => khong can thiet
+        }
+        println(output)
     }
 }
 
-
-//muốn một class có thể được kế thừa mà không phải là abstact class thì dùng open class (không ai dùng)
-//open class Shape {
-//    var counter = 0
-//
-//    open val area: Float = 0f
-//    open val circumference: Float = 0f
-//
-//    fun inc() {
-//        counter+=
-//    }
-//}
-
-
-data class Rectangle (val width: Float, val height: Float): Shape() {
+data class Rectangle (val width: Float, val height: Float): Shape {
     val diagonal = sqrt(width * width + height * height)
 
     override val area = width * height
@@ -50,7 +39,7 @@ data class Rectangle (val width: Float, val height: Float): Shape() {
     override val circumference = 2 * width + 2 * height
 }
 
-data class Circle (val radius: Float): Shape() {
+data class Circle (val radius: Float): Shape {
     override val area = radius * radius * PI.toFloat()
 
     override val circumference = 2 * radius * PI.toFloat()
