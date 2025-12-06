@@ -1,46 +1,61 @@
+import org.w3c.dom.css.Rect
+import kotlin.math.PI
+import kotlin.math.sqrt
+
 fun main() {
-    print("Enter a string: ")
-    val input = readln()
+    val rect1 = Rectangle(width = 5f, height = 7f)
+    val rect2 = Rectangle(width = 6f, height = 8f)
+    val rect3 = rect1
 
-    val favoriteNumbers = intArrayOf(1, 2, 3, 69)
 
-    val evenNumbers = favoriteNumbers.filter {
-        item -> item % 2 == 0       // it % 2 == 0: cung duoc
-    }
+    val rect4 = RectangleData(width = 4f, height = 5f)
+    val rect5 = RectangleData(width = 4f, height = 5f)
+    val rect6 = rect5.copy(
+        height = 10f       //copy tat ca ngoai tru height = 10f
+    )
 
-    val squareNumbers = favoriteNumbers.map {
-        item -> item * item
-//        it * it
-    }
+    println(rect1.width)
+    println(rect1.height)
 
-    println(evenNumbers)
+    println("The diagonal of rect1 is: ${rect1.diagonal}. The area is: ${rect1.area}")
+    println("The diagonal of rect2 is: ${rect2.diagonal}. The area is: ${rect2.area}")
 
-    println(squareNumbers)
+    println("The max area is: ${maxArea(rect1, rect2)}")
 
-    var lettersOnly = input.filter {
-        item -> item.isLetter()
-//        it.isLetter()
-    }
+    println(rect1 == rect2)     // false => khong phai data class
+    println(rect3 == rect1)     // true
 
-    println(lettersOnly)
+    println(rect4 == rect5)     // true => data class
 
-    val lambda: (Char) -> Boolean = {
-        it.isLetter()
-    }
+    println("Data of rect4 is: ${rect4}")              //user readable
 
-    println(input.filter(lambda))
+    println("Data of rect6 is: ${rect6}")
 
-    println(input.myFilter {
-        it.isLetter()
-    })
+    val circle = Circle(radius = 5f)
+
+    println("Circle area: ${circle.area}")
 }
 
-fun String.myFilter(predicate: (Char) -> Boolean): String {
-    return buildString {
-        for (char in this@myFilter) {
-            if (predicate(char)) {
-                append(char)
-            }
-        }
-    }
+fun maxArea(rect1: Rectangle, rect2: Rectangle): Float {
+    val area1 = rect1.area
+    val area2 = rect2.area
+
+    return maxOf(area1, area2)
+}
+
+class Rectangle (val width: Float, val height: Float) {
+    val diagonal = sqrt(width * width + height * height)
+
+    val area = width * height
+}
+
+
+data class RectangleData (val width: Float, val height: Float) {
+
+}
+
+data class Circle (val radius: Float) {
+    val area = radius * radius * PI
+
+    val diameter = 2 * radius
 }
