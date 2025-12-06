@@ -1,42 +1,46 @@
 fun main() {
     print("Enter a string: ")
-    val input = readln().toInt()
+    val input = readln()
 
-    println(input + input.reversed())
+    val favoriteNumbers = intArrayOf(1, 2, 3, 69)
 
-    val reversed = input.reversed()
-
-    println(reversed)
-
-    if (input == reversed) {
-        println("That's a palindrome!")
+    val evenNumbers = favoriteNumbers.filter {
+        item -> item % 2 == 0       // it % 2 == 0: cung duoc
     }
+
+    val squareNumbers = favoriteNumbers.map {
+        item -> item * item
+//        it * it
+    }
+
+    println(evenNumbers)
+
+    println(squareNumbers)
+
+    var lettersOnly = input.filter {
+        item -> item.isLetter()
+//        it.isLetter()
+    }
+
+    println(lettersOnly)
+
+    val lambda: (Char) -> Boolean = {
+        it.isLetter()
+    }
+
+    println(input.filter(lambda))
+
+    println(input.myFilter {
+        it.isLetter()
+    })
 }
 
-fun String.reversed(): String {
-    val finalString = buildString {
-        for (i in this@reversed.lastIndex downTo 0) {    //for (i in lastIndex downTo 0) => cung chap nhan duoc
-            append(this@reversed[i])
+fun String.myFilter(predicate: (Char) -> Boolean): String {
+    return buildString {
+        for (char in this@myFilter) {
+            if (predicate(char)) {
+                append(char)
+            }
         }
     }
-
-    return finalString
 }
-
-//fun reversed(string: String): String {
-//    val finalString = buildString {
-//        for (i in string.lastIndex downTo 0) {    //for (i in lastIndex downTo 0) => cung chap nhan duoc
-//            append(string[i])
-//        }
-//    }
-//
-//    return finalString
-//}
-
-fun Int.reversed(): Int {
-    return this.toString().reversed().toInt()
-}
-
-//fun reversed(number: Int): Int {
-//    return number.toString().reversed().toInt()
-//}
