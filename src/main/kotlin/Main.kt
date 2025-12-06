@@ -1,12 +1,12 @@
 fun main() {
-    val x = 12
-    val y = 9
+    println("Please enter a number:")
+    val input = readln()
 
-    val areBothEven = x % 2 == 0 && y % 2 == 0
-    val atleastOneEven = x % 2 == 0 || y % 2 == 0
+    val inputAsInteger = input.toInt() // input == string => error
 
+    val isEven = inputAsInteger % 2 == 0
 
+    println("You've entered a number: $input")
 
-    println("Are both even? $areBothEven")
-    println("Are atleast one even? $atleastOneEven")
+    println("Is the number even? $isEven")
 }
