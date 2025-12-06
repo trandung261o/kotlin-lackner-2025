@@ -20,22 +20,10 @@ fun main() {
 //    DateUtil.formatDate()
 }
 
-//object DateUtil {
-//    fun formatDate(date: LocalDate): String {
-//
-//    }
-//}
-
 object FixedSizeSquare: Shape {
     override val area = 16f
     override val circumference = 16f
 }
-
-// better readale
-//data object FixedSizeSquare: Shape {
-//    override val area = 16f
-//    override val circumference = 16f
-//}
 
 enum class Country (val code: String) {
     GERMANY("DE"), FRANCE("FR"), USA("US")
@@ -67,7 +55,9 @@ fun printShapes(vararg shapes: Shape) {
 }
 
 data class Rectangle (val width: Float, val height: Float): Shape {
-    val diagonal = sqrt(width * width + height * height)
+
+    //chỉ truy cập được trong class này
+    private val diagonal = sqrt(width * width + height * height)
 
     override val area = width * height
 
