@@ -1,10 +1,19 @@
 fun main() {
-//    val x = 5
-//    val x: Float = 5.1234
-//    val x: Boolean = true
-//    val x = "hello world"
+    var x = 5
+    val y = 9
 
-    var x = "Hello world"
-    x = "Bye Bye world"
+    println(x + y)
+    println(x - y)
+    println(x / y)
+    println(x * y)
+    println(x % y)
+
+    x++
+    println(x)
+
+    x--
+    println(x)
+
+    x += 5      // -= *= /=
     println(x)
 }
