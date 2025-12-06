@@ -2,11 +2,8 @@ fun main() {
     println("Please enter a number:")
     val input = readln()
 
-    val inputAsInteger = input.toInt() // input == string => error
+    val inputAsInteger = input.toIntOrNull()?.rem(2)?.equals(0)
+    // if not null => % 2 => not null => == 0 ?
 
-    val isEven = inputAsInteger % 2 == 0
-
-    println("You've entered a number: $input")
-
-    println("Is the number even? $isEven")
+    println("Is even: $inputAsInteger")
 }
