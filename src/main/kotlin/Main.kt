@@ -6,12 +6,30 @@ fun main() {
     val rect1 = Rectangle(width = 5f, height = 7f)
     val circle = Circle(radius = 5f)
 
-    printShapes(rect1, circle, rect1)
+    println(greetMe(Country.GERMANY))
+    println(greetMe(Country.FRANCE))
+    println(greetMe(Country.USA))
+
+    for (country in Country.entries) {
+        println(country.code)
+    }
 }
 
 fun sumAreas (vararg shapes: Shape): Double {
     return shapes.sumOf {
         item -> item.area.toDouble()
+    }
+}
+
+enum class Country (val code: String) {
+    GERMANY("DE"), FRANCE("FR"), USA("US")
+}
+
+fun greetMe (country: Country): String {
+    return when (country) {
+        Country.GERMANY -> "Guten Tag!"
+        Country.FRANCE -> "Bonjour!"
+        Country.USA -> "Hello"
     }
 }
 
