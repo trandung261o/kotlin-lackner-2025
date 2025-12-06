@@ -1,4 +1,5 @@
 import org.w3c.dom.css.Rect
+import java.time.LocalDate
 import kotlin.math.PI
 import kotlin.math.sqrt
 
@@ -13,13 +14,28 @@ fun main() {
     for (country in Country.entries) {
         println(country.code)
     }
+
+    println(FixedSizeSquare.area)
+
+//    DateUtil.formatDate()
 }
 
-fun sumAreas (vararg shapes: Shape): Double {
-    return shapes.sumOf {
-        item -> item.area.toDouble()
-    }
+//object DateUtil {
+//    fun formatDate(date: LocalDate): String {
+//
+//    }
+//}
+
+object FixedSizeSquare: Shape {
+    override val area = 16f
+    override val circumference = 16f
 }
+
+// better readale
+//data object FixedSizeSquare: Shape {
+//    override val area = 16f
+//    override val circumference = 16f
+//}
 
 enum class Country (val code: String) {
     GERMANY("DE"), FRANCE("FR"), USA("US")
@@ -43,6 +59,7 @@ fun printShapes(vararg shapes: Shape) {
         val output = when (shape) {
             is Circle -> "Yo that's a circle!"
             is Rectangle -> "That's a rect!"
+            is FixedSizeSquare -> "That's a fix size square!"
 //            else -> null      // sealed class => compiler biet chinh xac co bao nhieu TH con => khong can thiet
         }
         println(output)
